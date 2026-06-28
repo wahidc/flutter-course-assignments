@@ -107,7 +107,40 @@ void viewAllStudent(studentList) {
   }
 }
 
+void addBonus(studentList) {
+  viewAllStudent(studentList);
+  stdout.write("Pick a student to add bonus points (0-10) :");
+  int teacherPick = int.parse(stdin.readLineSync()!);
+  stdout.write(
+    "Enter bonus points for ${studentList[teacherPick - 1]["name"]} :",
+  );
+  var bonus = int.parse(stdin.readLineSync()!);
 
+  if (studentList[teacherPick - 1]["bonus"] == null) {
+    if (bonus >= 1 && bonus <= 10) {
+      studentList[teacherPick - 1]["bonus"] = bonus;
+      stdout.write(
+        "$bonus points given successfully as bonus to ${studentList[teacherPick - 1]["name"]}. \n",
+      );
+    } else {
+      stdout.write("Invalid Bonus Score. \n");
+    }
+  } else {
+    stdout.write(
+      "Bonus point allready given to ${studentList[teacherPick - 1]["name"]} \n",
+    );
+  }
+}
+
+void addComment(studentList) {
+  viewAllStudent(studentList);
+  stdout.write("Pick a student to add comment : ");
+  int teacherPick = int.parse(stdin.readLineSync()!);
+
+  stdout.write("Add comment for ${studentList[teacherPick - 1]["name"]} : ");
+  String? comment = stdin.readLineSync()?.toUpperCase();
+  studentList[teacherPick - 1]["comment"] = comment;
+}
 
 
 
