@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:math';
 void main() {
   const appTitle = "Student Grader v6.0";
   int choise;
@@ -24,7 +24,6 @@ void main() {
 
     stdout.write("Enter an option: ");
     choise = int.parse(stdin.readLineSync()!);
-    
 
     switch (choise) {
       case 1:
@@ -222,21 +221,56 @@ void viewReportCard(studentList) {
   print("\n");
 }
 
+void classSummary(studentList) {
+  List<double> avgMarksOfAll = [];
+  int totalStudents = studentList.length;
+  int passedStudent = 0;
+  int failedStudent = 0;
+  double classSum = 0;
 
+  for (int i = 0; i < totalStudents; i++) {
+    avgMarksOfAll.add(avgCalculator(studentList, i + 1));
+    classSum += avgCalculator(studentList, i + 1);
+  }
 
+  double classAvg = double.parse((classSum / totalStudents).toStringAsFixed(2));
 
+  double highestAvg = 0, lowestAvg = 0;
 
+  for (double element in avgMarksOfAll) {
+    highestAvg = max(highestAvg, element);
+    lowestAvg = min(highestAvg, element);
 
+    if (element >= 60) {
+      passedStudent++;
+    } else {
+      failedStudent++;
+    }
+  }
 
+  var totalStudentPrefix = "║   Total Students : $totalStudents";
+  var passedPrefix = "║   Student Passed : $passedStudent";
+  var failedPrefix = "║   Student Failed : $failedStudent";
+  var classAvgPrefix = "║   Class Average : $classAvg";
+  var highestAvgPrefix = "║   Highest Average : $highestAvg";
+  var lowestAvgPrefix = "║   Lowest Average : $lowestAvg";
 
+  var totalStudentSuffix = sufixGenerator(totalStudentPrefix.length);
+  var passedSuffix = sufixGenerator(passedPrefix.length);
+  var failedSuffix = sufixGenerator(failedPrefix.length);
+  var classAvgSuffix = sufixGenerator(classAvgPrefix.length);
+  var highestAvgSuffix = sufixGenerator(highestAvgPrefix.length);
+  var lowestAvgSuffix = sufixGenerator(lowestAvgPrefix.length);
 
-
-
-
-
-
-
-
-
-
-
+  print("╔═════════════════════════════════════════════════╗");
+  print("║                 CLASS SUMMARY                   ║");
+  print("╠═════════════════════════════════════════════════║");
+  print("$totalStudentPrefix $totalStudentSuffix ║");
+  print("$passedPrefix $passedSuffix ║");
+  print("$failedPrefix $failedSuffix ║");
+  print("$classAvgPrefix $classAvgSuffix ║");
+  print("$highestAvgPrefix $highestAvgSuffix ║");
+  print("$lowestAvgPrefix $lowestAvgSuffix ║");
+  print("╚═════════════════════════════════════════════════╝");
+  print("\n");
+}
