@@ -28,10 +28,10 @@ void main() {
 
     switch (choise) {
       case 1:
-        //addStudent(studentList, subject);
+        addStudent(studentList, subject);
         break;
       case 2:
-        //recordScore(studentList, subject);
+        recordScore(studentList, subject);
         break;
       case 3:
         //addBonus(studentList);
@@ -40,7 +40,7 @@ void main() {
         //addComment(studentList);
         break;
       case 5:
-        //viewAllStudent(studentList);
+        viewAllStudent(studentList);
         break;
       case 6:
         //viewReportCard(studentList);
@@ -67,3 +67,65 @@ void addStudent(studentList, subject) {
   });
   stdout.write("The student named ${name}, added sucessfully \n\n");
 }
+
+void recordScore(studentList, subject) {
+  viewAllStudent(studentList);
+  stdout.write("\n Pick a Student to Record Score: ");
+  int teacherPick = int.parse(stdin.readLineSync()!);
+
+  while (studentList[teacherPick - 1]["score"].length <
+      subject.toList().length) {
+    stdout.write(
+      "Enter score for ${subject.toList()[studentList[teacherPick - 1]["score"].length]} : ",
+    );
+    int score = int.parse(stdin.readLineSync()!);
+
+    if (score <= 100 && score >= 0) {
+      studentList[teacherPick - 1]["score"].add(score);
+    } else {
+      print("Mark out of Range (0-100), Try Again !");
+    }
+  }
+
+  print(
+    "Score recorded sucessfully for ${studentList[teacherPick - 1]["name"]}",
+  );
+}
+
+void viewAllStudent(studentList) {
+  stdout.write("Here is the student list : \n");
+  for (int i = 0; i < studentList.length; i++) {
+    if (studentList[i]["bonus"] != null) {
+      print(
+        "${i + 1}. name: ${studentList[i]["name"]}, score: ${studentList[i]["score"]}, ⭐Has Bonus, ${studentList[i]["comment"]}",
+      );
+    } else {
+      print(
+        "${i + 1}. name: ${studentList[i]["name"]}, score: ${studentList[i]["score"]}, comment: ${studentList[i]["comment"]}",
+      );
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
