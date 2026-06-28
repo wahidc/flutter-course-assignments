@@ -54,3 +54,16 @@ void main() {
     }
   } while (choise != 8);
 }
+
+void addStudent(studentList, subject) {
+  stdout.write("Enter Student Name :");
+  String? name = stdin.readLineSync();
+  studentList.add({
+    "name": name,
+    "score": [],
+    "subject": subject,
+    "bonus": null,
+    "comment": "NO COMMENT PROVIDED.",
+  });
+  stdout.write("The student named ${name}, added sucessfully \n\n");
+}

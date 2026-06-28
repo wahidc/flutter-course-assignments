@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 void main() {
   bool isNewStudent = true;
 
@@ -30,7 +32,6 @@ void main() {
 
   // Used the Spread operator to combine 2 lists.
   List<String> list1 = ["Vermithor", "Vhagar", "Moondancer"];
-  // ignore: unused_local_variable
   List<String> list2 = ["Sheepstealer", "Vermax", ...list1];
   
 }
