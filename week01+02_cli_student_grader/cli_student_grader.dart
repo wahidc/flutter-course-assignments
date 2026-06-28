@@ -34,16 +34,16 @@ void main() {
         recordScore(studentList, subject);
         break;
       case 3:
-        //addBonus(studentList);
+        addBonus(studentList);
         break;
       case 4:
-        //addComment(studentList);
+        addComment(studentList);
         break;
       case 5:
         viewAllStudent(studentList);
         break;
       case 6:
-        //viewReportCard(studentList);
+        viewReportCard(studentList);
         break;
       case 7:
         //classSummary(studentList);
@@ -142,7 +142,85 @@ void addComment(studentList) {
   studentList[teacherPick - 1]["comment"] = comment;
 }
 
+double avgCalculator(studentList, teacherPick) {
+  int sum = 0;
+  for (int element in studentList[teacherPick - 1]["score"]) {
+    sum += element;
+  }
+  double rawAvg = double.parse(
+    (sum / studentList[teacherPick - 1]["score"].length).toStringAsFixed(2),
+  );
+  double finalAvg = rawAvg + (studentList[teacherPick - 1]["bonus"] ?? 0);
 
+  return finalAvg;
+}
+
+String gradeCalculator(studentList, teacherPick) {
+  String grade = "";
+  double avg = avgCalculator(studentList, teacherPick);
+
+  switch (avg) {
+    case double n when n >= 90 && n <= 100:
+      grade = "A";
+    case double n when n >= 80 && n <= 89:
+      grade = "B";
+    case double n when n >= 70 && n <= 79:
+      grade = "C";
+    case double n when n >= 60 && n <= 69:
+      grade = "D";
+    case double n when n >= 0 && n <= 59:
+      grade = "F";
+    default:
+      grade = "Unknown";
+  }
+  return grade;
+}
+
+String sufixGenerator(int prefixLength) {
+  String suffix = "";
+  for (int i = 0; i < 48 - prefixLength; i++) {
+    suffix += " ";
+  }
+  return suffix;
+}
+
+void viewReportCard(studentList) {
+  viewAllStudent(studentList);
+  stdout.write("\n Pick a Student to view Report Card : ");
+  int teacherPick = int.parse(stdin.readLineSync()!);
+
+  double avg = avgCalculator(studentList, teacherPick);
+  String grade = gradeCalculator(studentList, teacherPick);
+
+  var namePrefix = "║   Name : ${studentList[teacherPick - 1]["name"]}";
+  var scorePrefix = "║   Score : ${studentList[teacherPick - 1]["score"]}";
+  var bonusPrefix =
+      "║   Bonus : +${studentList[teacherPick - 1]["bonus"] ?? 0}";
+  var averagePrefix = "║   Average : $avg";
+  var gradePrefix = "║   Grade : $grade";
+  var commentPrefix =
+      "║   Comment : ${studentList[teacherPick - 1]["comment"]}";
+
+  var nameSuffix = sufixGenerator(namePrefix.length);
+  var scoreSuffix = sufixGenerator(scorePrefix.length);
+  var bonusSuffix = sufixGenerator(bonusPrefix.length);
+  var averageSuffix = sufixGenerator(averagePrefix.length);
+  var gradeSuffix = sufixGenerator(gradePrefix.length);
+  var commentSuffix = sufixGenerator(commentPrefix.length);
+  //var Suffix = sufixGenerator(Prefix.length);
+
+  print("╔═════════════════════════════════════════════════╗");
+  print("║                 REPORT CARD                     ║");
+  print("╠═════════════════════════════════════════════════║");
+  print("$namePrefix $nameSuffix ║");
+  print("$scorePrefix $scoreSuffix ║");
+  print("$bonusPrefix $bonusSuffix ║");
+  print("$averagePrefix $averageSuffix ║");
+  print("$gradePrefix $gradeSuffix ║");
+  print("$commentPrefix $commentSuffix ║");
+  print("╚═════════════════════════════════════════════════╝");
+  print("\n");
+}
 
 
 
