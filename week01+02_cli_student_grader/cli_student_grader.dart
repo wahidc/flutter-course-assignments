@@ -45,10 +45,10 @@ void main() {
         viewReportCard(studentList);
         break;
       case 7:
-        //classSummary(studentList);
+        classSummary(studentList);
         break;
       default:
-        //print("Program Terminated.");
+        print("Program Terminated.");
         break;
     }
   } while (choise != 8);
