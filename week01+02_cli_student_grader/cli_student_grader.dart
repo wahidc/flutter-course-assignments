@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 void main() {
   const appTitle = "Student Grader v6.0";
-  int choise;
+  int choice;
   List<Map<String, dynamic>> studentList = [];
   Set<String> subject = {"English", "Bangla", "Mathematics"};
 
@@ -23,9 +23,9 @@ void main() {
   """);
 
     stdout.write("Enter an option: ");
-    choise = int.parse(stdin.readLineSync()!);
+    choice = int.parse(stdin.readLineSync()!);
 
-    switch (choise) {
+    switch (choice) {
       case 1:
         addStudent(studentList, subject);
         break;
@@ -51,7 +51,7 @@ void main() {
         print("Program Terminated.");
         break;
     }
-  } while (choise != 8);
+  } while (choice != 8);
 }
 
 void addStudent(studentList, subject) {
@@ -239,7 +239,7 @@ void classSummary(studentList) {
 
   for (double element in avgMarksOfAll) {
     highestAvg = max(highestAvg, element);
-    lowestAvg = min(highestAvg, element);
+    lowestAvg = min(lowestAvg, element);
 
     if (element >= 60) {
       passedStudent++;
